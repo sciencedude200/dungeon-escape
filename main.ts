@@ -60,6 +60,11 @@ let old_man = sprites.create(img`
 old_man.setPosition(78, 105)
 old_man.setKind(SpriteKind.wizard)
 forever(function () {
+    music.playMelody("E F F E F G F G ", 120)
+    music.playMelody("G F G A G G F G ", 120)
+    music.playMelody("A F G F G F D E ", 120)
+})
+forever(function () {
     if (controller.left.isPressed() || controller.right.isPressed() || (controller.up.isPressed() || controller.down.isPressed())) {
         mySprite.setImage(img`
             ..................
