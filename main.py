@@ -8,7 +8,7 @@ controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
 def on_on_overlap(sprite, otherSprite):
     game.splash("hello I am the old man")
-    game.splash("you must escape")
+    game.splash("you must escape now")
     game.splash("they locked me in here 100 years ago")
     pause(5000)
 sprites.on_overlap(SpriteKind.player, SpriteKind.wizard, on_on_overlap)
