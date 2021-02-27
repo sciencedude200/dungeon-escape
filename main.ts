@@ -1,5 +1,6 @@
 namespace SpriteKind {
     export const wizard = SpriteKind.create()
+    export const slime_boss = SpriteKind.create()
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.setImage(img`
@@ -37,6 +38,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.wizard, function (sprite, otherS
     game.splash("I,m in here 100 years ( ´･･)ﾉ(._.`)")
     pause(5000)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.slime_boss, function (sprite, otherSprite) {
+    if (controller.A.isPressed()) {
+        slime_boss_health += -1
+        pause(1000)
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
         otherSprite.destroy()
@@ -46,9 +53,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     info.changeLifeBy(-1)
 })
 let projectile: Sprite = null
+let slimeball: Sprite = null
 let mySprite: Sprite = null
-let statusbar = statusbars.create(20, 4, StatusBarKind.Health)
-statusbar.max = 5
 let mySprite2 = sprites.create(img`
     .................................
     .............ffffffff............
@@ -84,6 +90,7 @@ let mySprite2 = sprites.create(img`
     ...........fff6bbbb6fff..........
     `, SpriteKind.Player)
 tiles.setTilemap(tilemap`level2`)
+let slime_boss = sprites.create(assets.image`slime boss`, SpriteKind.slime_boss)
 mySprite = sprites.create(img`
     ......ffff......
     .....f7777ff....
@@ -140,9 +147,10 @@ let enemy1 = sprites.create(img`
     ....................
     ....................
     `, SpriteKind.Enemy)
-statusbar.value = info.life()
-statusbar.attachToSprite(mySprite)
+let slime_boss_health = 3
+slime_boss.follow(mySprite)
 tiles.placeOnRandomTile(enemy1, assets.tile`tile`)
+tiles.placeOnRandomTile(slime_boss, assets.tile`myTile1`)
 enemy1.follow(mySprite)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
@@ -168,6 +176,80 @@ let old_man = sprites.create(img`
     `, 0)
 old_man.setPosition(78, 105)
 old_man.setKind(SpriteKind.wizard)
+game.onUpdateInterval(2000, function () {
+    slimeball = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . 7 6 6 6 7 7 7 7 7 . . . 
+        . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
+        . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
+        . . . . 7 7 7 7 7 7 7 7 7 . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, slime_boss, 0, 50)
+    slimeball = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . 7 6 6 6 7 7 7 7 7 . . . 
+        . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
+        . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
+        . . . . 7 7 7 7 7 7 7 7 7 . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, slime_boss, 0, -50)
+    slimeball = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . 7 6 6 6 7 7 7 7 7 . . . 
+        . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
+        . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
+        . . . . 7 7 7 7 7 7 7 7 7 . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, slime_boss, -50, 0)
+    slimeball = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . 7 6 6 6 7 7 7 7 7 . . . 
+        . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
+        . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
+        . . . . 7 7 7 7 7 7 7 7 7 . . . 
+        . . . . . 7 7 7 7 7 7 7 . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, slime_boss, 50, 0)
+})
 forever(function () {
     if (controller.B.isPressed() && info.life() == 5) {
         projectile = sprites.createProjectileFromSprite(img`
@@ -329,5 +411,19 @@ forever(function () {
             .....ffffff.....
             `)
         pause(100)
+    }
+})
+forever(function () {
+    music.playMelody("E B C5 A B G A F ", 120)
+})
+forever(function () {
+    if (slime_boss_health == 0) {
+        slime_boss.destroy()
+    }
+})
+forever(function () {
+    if (mySprite.overlapsWith(slimeball)) {
+        info.changeLifeBy(-1)
+        pause(5000)
     }
 })
