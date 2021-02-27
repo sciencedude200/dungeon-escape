@@ -40,6 +40,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.wizard, function (sprite, otherS
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
         otherSprite.destroy()
+        info.changeLifeBy(1)
     }
     pause(2000)
     info.changeLifeBy(-1)
