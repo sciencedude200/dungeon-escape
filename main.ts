@@ -54,6 +54,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let projectile: Sprite = null
 let slimeball: Sprite = null
 let mySprite: Sprite = null
+let myCorg = corgio.create(SpriteKind.Player)
+myCorg.updateSprite()
 let mySprite2 = sprites.create(img`
     .................................
     .............ffffffff............
@@ -89,6 +91,25 @@ let mySprite2 = sprites.create(img`
     ...........fff6bbbb6fff..........
     `, SpriteKind.Player)
 tiles.setTilemap(tilemap`level2`)
+let fireball = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+tiles.placeOnRandomTile(fireball, assets.tile`myTile2`)
 let slime_boss = sprites.create(assets.image`slime boss`, SpriteKind.slime_boss)
 mySprite = sprites.create(img`
     ......ffff......
@@ -253,7 +274,7 @@ forever(function () {
     if (slime_boss_health == 0) {
         slime_boss.destroy()
         info.setLife(6)
-        tiles.setTilemap(tilemap`level2`)
+        slime_boss_health = 1
     }
 })
 forever(function () {
