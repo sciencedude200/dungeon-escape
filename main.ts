@@ -48,8 +48,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     if (controller.A.isPressed()) {
         otherSprite.destroy()
     }
-    pause(5000)
     info.changeLifeBy(-1)
+    pause(1000)
 })
 let projectile: Sprite = null
 let slimeball: Sprite = null
@@ -253,6 +253,7 @@ forever(function () {
     if (slime_boss_health == 0) {
         slime_boss.destroy()
         info.setLife(6)
+        tiles.setTilemap(tilemap`level2`)
     }
 })
 forever(function () {
