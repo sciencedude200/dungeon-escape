@@ -4,32 +4,36 @@ namespace SpriteKind {
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.setImage(img`
-        ........fff.......
-        ......ffeeef......
-        .....feee7eef.....
-        .....fee77efff....
-        ....f4e7777e4f....
-        ....f44eeee44f....
-        .fff3ff4444fff.f..
-        .f4f333ffff333f4f.
-        .fef3f333333f3fef.
-        .fe4feffffffef4ef.
-        .ffeee11ee11eeeff.
-        .44fee1f44f1eeff..
-        .44.ff4f44f4fff...
-        .....6f2442feef...
-        .....f6fffffeef...
-        .....fe66eefeef...
-        .....feefeeffff...
-        .....f22f22f44....
-        .....fffffff44....
-        ............bb....
-        ............bb....
-        ...........ffff...
-        ............66....
-        ............66....
-        ............66....
-        ............66....
+        ...................
+        ...................
+        ...................
+        ......fffff......f.
+        .....f77777f....f7f
+        ....f7777777ffff77f
+        ....f7777777777777f
+        ....f7777777777fff.
+        .....ffffffffff....
+        .....f55555555f....
+        .....f55f55f55f....
+        .....f55555555f....
+        .....f5f555555f....
+        .....f55ffff55f....
+        .....f55555555f....
+        .....ffffffffff....
+        ..ffff77777777ffff.
+        .f7777777ff7777777f
+        .f777777777777ff77f
+        .f77ff777ff755ff77f
+        .f77ff777777557777f
+        .f77ff777ff755ffff.
+        .fff..fffffbbbb....
+        f222ffeeeffe66f....
+        f2f2ffeeeffe66f....
+        f222ffeeeffe66f....
+        .f2f.feeeffeeef....
+        ..f.ffeeeffeeeff...
+        ...feeeeeffeeeeef..
+        ..feeeeeeffeeeeeef.
         `)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.wizard, function (sprite, otherSprite) {
@@ -54,8 +58,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let projectile: Sprite = null
 let slimeball: Sprite = null
 let mySprite: Sprite = null
-let myCorg = corgio.create(SpriteKind.Player)
-myCorg.updateSprite()
 let mySprite2 = sprites.create(img`
     .................................
     .............ffffffff............
@@ -110,30 +112,38 @@ let fireball = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
 tiles.placeOnRandomTile(fireball, assets.tile`myTile2`)
-let slime_boss = sprites.create(assets.image`slime boss`, SpriteKind.slime_boss)
+let slime_boss2 = sprites.create(assets.image`slime boss`, SpriteKind.slime_boss)
 mySprite = sprites.create(img`
-    ......ffff......
-    .....f7777ff....
-    ....f7777777f...
-    .f.ff477774f7ff.
-    f4f3ff4444ff7f4f
-    f4f333ffff33ff4f
-    fe4f33333333f4ef
-    fef3ffffffff3fef
-    .fefe11ee11efef.
-    ..fee1f44f1eef..
-    ..ffe4f44f4eff..
-    .f76fe4444ef67f.
-    fef66ffeeff66fef
-    feef676ff676feef
-    f4ff66777776ff4f
-    f44f66677666f44f
-    f4f655f55f556f4f
-    .fff66555566fff.
-    ..f2ff6666ff2f..
-    ..ff42ffff24ff..
-    ...ffffffffff...
-    .....ffffff.....
+    .................ff
+    ................f7f
+    .......ffff...ff77f
+    ......f7777fff7777f
+    ......f7777777777f.
+    .....f77777777777f.
+    .....f777777777ff..
+    .....ffffffffff....
+    .....f55555555f....
+    .....f55f55f55f....
+    .....f55555555f....
+    .....f5f555555f....
+    .....f55ffff55f....
+    .....f55555555f....
+    ......ffffffff.....
+    .....f77777777f....
+    ..ffff777ff777fff..
+    .f777777777777777f.
+    .f7777777ff7777777f
+    .f77ff77777777ff77f
+    .fffff777ff777ff77f
+    f2222f77777777ff77f
+    f2ff2ffffffffff.ee.
+    f2222feeeffeeef.ee.
+    .f22ffeeeffeeefbbbb
+    ..ff.feeeffeeef.66.
+    .....feeeffeeef.66.
+    ....feeeeffeeeef66.
+    ...feeeeeffeeeeef..
+    ...ffffffffffffff..
     `, SpriteKind.Player)
 let enemy1 = sprites.create(img`
     ....................
@@ -167,10 +177,10 @@ let enemy1 = sprites.create(img`
     ....................
     ....................
     `, SpriteKind.Enemy)
-let slime_boss_health = 3
-slime_boss.follow(mySprite)
+let slime_boss_health = 5
+slime_boss2.follow(mySprite)
 tiles.placeOnRandomTile(enemy1, assets.tile`tile`)
-tiles.placeOnRandomTile(slime_boss, assets.tile`myTile1`)
+tiles.placeOnRandomTile(slime_boss2, assets.tile`myTile1`)
 enemy1.follow(mySprite)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
@@ -214,7 +224,7 @@ game.onUpdateInterval(2000, function () {
         . . . . . 7 7 7 7 7 7 7 . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, slime_boss, 0, 50)
+        `, slime_boss2, 0, 50)
     slimeball = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . 7 7 7 7 7 7 7 . . . . 
@@ -232,7 +242,7 @@ game.onUpdateInterval(2000, function () {
         . . . . . 7 7 7 7 7 7 7 . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, slime_boss, 0, -50)
+        `, slime_boss2, 0, -50)
     slimeball = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . 7 7 7 7 7 7 7 . . . . 
@@ -250,7 +260,7 @@ game.onUpdateInterval(2000, function () {
         . . . . . 7 7 7 7 7 7 7 . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, slime_boss, -50, 0)
+        `, slime_boss2, -50, 0)
     slimeball = sprites.createProjectileFromSprite(img`
         . . . . . . . . . . . . . . . . 
         . . . . . 7 7 7 7 7 7 7 . . . . 
@@ -268,11 +278,11 @@ game.onUpdateInterval(2000, function () {
         . . . . . 7 7 7 7 7 7 7 . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, slime_boss, 50, 0)
+        `, slime_boss2, 50, 0)
 })
 forever(function () {
     if (slime_boss_health == 0) {
-        slime_boss.destroy()
+        slime_boss2.destroy()
         info.setLife(6)
         slime_boss_health = 1
     }
@@ -289,53 +299,69 @@ forever(function () {
 forever(function () {
     if (controller.left.isPressed() || controller.right.isPressed() || (controller.up.isPressed() || controller.down.isPressed())) {
         mySprite.setImage(img`
-            ........f.......
-            .......f7f......
-            .....ff77fff....
-            ....ff7777fff...
-            ....f777777eff..
-            fffff777777fefff
-            f4f3ff7777ffef4f
-            f4f333ffff33ff4f
-            fe4f33333333f4ef
-            fef3ffffffff3fef
-            ffefe11ee11efeff
-            .ffee1f44f1eeff.
-            ffffe4f44f4efff.
-            feeefe4444efeef.
-            ffef6ffeeff6feef
-            f4ff676ff76ffeef
-            fff6667776f44fef
-            ..f6566776f44fff
-            ..ff66555f5fff..
-            ..feff655566ff..
-            ..f2eef666ff2f..
-            ..f422ffffffff..
+            .................ff
+            ................f7f
+            .......ffff...ff77f
+            ......f7777fff7777f
+            ......f7777777777f.
+            .....f77777777777f.
+            .....f777777777ff..
+            .....ffffffffff....
+            .....f55555555f....
+            .....f55f55f55f....
+            .....f55555555f....
+            .....f5f555555f....
+            .....f55ffff55f....
+            .....f55555555f....
+            ......ffffffff.....
+            .....f77777777f....
+            ..ffff777ff777fff..
+            .f777777777777777f.
+            .f7777777ff7777777f
+            .f77ff77777777ff77f
+            .fffff777ff777ff77f
+            f2222f77777777ff77f
+            f2ff2ffffffffff.ee.
+            f2222feeeffeeef.ee.
+            .f22ffeeeffeeefbbbb
+            ..ff.feeeffeeef.66.
+            .....feeeffeeef.66.
+            ....feeeeffeeeef66.
+            ...feeeeeffeeeeef..
+            ...ffffffffffffff..
             `)
         pause(100)
         mySprite.setImage(img`
-            ......ffff......
-            .....f7777ff....
-            ....f7777777f...
-            .f.ff477774f7ff.
-            f4f3ff4444ff7f4f
-            f4f333ffff33ff4f
-            fe4f33333333f4ef
-            fef3ffffffff3fef
-            .fefe11ee11efef.
-            ..fee1f44f1eef..
-            ..ffe4f44f4eff..
-            .f76fe4444ef67f.
-            fef66ffeeff66fef
-            feef676ff676feef
-            f4ff66777776ff4f
-            f44f66677666f44f
-            f4f655f55f556f4f
-            .fff66555566fff.
-            ..f2ff6666ff2f..
-            ..ff42ffff24ff..
-            ...ffffffffff...
-            .....ffffff.....
+            ...................
+            ...................
+            ...................
+            ......fffff......f.
+            .....f77777f....f7f
+            ....f7777777ffff77f
+            ....f7777777777777f
+            ....f7777777777fff.
+            .....ffffffffff....
+            .....f55555555f....
+            .....f55f55f55f....
+            .....f55555555f....
+            .....f5f555555f....
+            .....f55ffff55f....
+            .....f55555555f....
+            .....ffffffffff....
+            ..ffff77777777ffff.
+            .f7777777ff7777777f
+            .f7777777777777777f
+            .f77ff777ff777ff77f
+            .f77ff77777777ff77f
+            .f77ff777ff777f.ee.
+            .fff..ffffffff..ee.
+            f222ffeeeffeeefbbbb
+            f2f2ffeeeffeeef.66.
+            f222ffeeeffeeef.66.
+            .f2f.feeeffeeef.66.
+            ..f.ffeeeffeeeff...
+            ...feeeeeffeeeeef..
+            ..feeeeeeffeeeeeef.
             `)
         pause(100)
     }
