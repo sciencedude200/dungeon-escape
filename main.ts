@@ -196,8 +196,8 @@ let old_man = sprites.create(img`
     . . . . d f d d d d f d . . . . 
     . d d . b d f f f f d b d d . . 
     . d d . b b d d d d b b d d . . 
-    . 8 8 b . b b b b b b . 8 8 . . 
-    . 8 b b . . b b b b b . 8 8 . . 
+    . 8 8 b 8 b b b b b b 8 8 8 . . 
+    . 8 b b 8 8 b b b b b 8 8 8 . . 
     . 8 b b b b b b b b 8 8 8 8 . . 
     . 8 8 8 b b b b b b 8 8 8 8 . . 
     . . . 8 8 8 8 8 8 8 8 8 . . . . 
@@ -354,7 +354,7 @@ forever(function () {
             .f77ff777ff777ff77f
             .f77ff77777777ff77f
             .f77ff777ff777f.ee.
-            .fff..ffffffff..ee.
+            .fff..fffffffff.ee.
             f222ffeeeffeeefbbbb
             f2f2ffeeeffeeef.66.
             f222ffeeeffeeef.66.
