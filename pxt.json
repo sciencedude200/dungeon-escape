@@ -7,7 +7,11 @@
         "color-coded-tilemap": "*",
         "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.0",
         "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
-        "corgio": "*"
+        "corgio": "*",
+        "keyboard": "*",
+        "arcade-story": "github:microsoft/arcade-storytelling#v1.0.1",
+        "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0",
+        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1"
     },
     "files": [
         "main.blocks",

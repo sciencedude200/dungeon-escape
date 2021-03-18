@@ -3,7 +3,7 @@ namespace SpriteKind {
     export const slime_boss = SpriteKind.create()
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.setImage(img`
+    the_player.setImage(img`
         ...................
         ...................
         ...................
@@ -49,6 +49,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.slime_boss, function (sprite, ot
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    pause(1000)
     if (controller.A.isPressed()) {
         otherSprite.destroy()
     }
@@ -57,8 +58,62 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let projectile: Sprite = null
 let slimeball: Sprite = null
-let mySprite: Sprite = null
-let mySprite2 = sprites.create(img`
+let the_player: Sprite = null
+let fireball = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)
+let fire_ball3 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)
+let fireball2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
+    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
+    . . . . 4 4 4 4 4 4 4 4 4 . . . 
+    . . . . . 4 4 4 4 4 4 4 . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Enemy)
+let spawn_ball = sprites.create(img`
     .................................
     .............ffffffff............
     ...........fff6bbbb6fff..........
@@ -93,27 +148,11 @@ let mySprite2 = sprites.create(img`
     ...........fff6bbbb6fff..........
     `, SpriteKind.Player)
 tiles.setTilemap(tilemap`level2`)
-let fireball = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . 4 4 4 4 4 4 4 . . . . 
-    . . . . 4 4 4 4 4 4 4 4 4 . . . 
-    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
-    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
-    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
-    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
-    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
-    . . 4 4 5 5 f 5 5 5 f 5 5 4 4 . 
-    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
-    . . 4 4 5 5 5 5 5 5 5 5 5 4 4 . 
-    . . . 4 4 5 5 5 5 5 5 5 4 4 . . 
-    . . . . 4 4 4 4 4 4 4 4 4 . . . 
-    . . . . . 4 4 4 4 4 4 4 . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.Player)
 tiles.placeOnRandomTile(fireball, assets.tile`myTile2`)
+tiles.placeOnRandomTile(fire_ball3, assets.tile`myTile2`)
+tiles.placeOnRandomTile(fireball2, assets.tile`myTile2`)
 let slime_boss2 = sprites.create(assets.image`slime boss`, SpriteKind.slime_boss)
-mySprite = sprites.create(img`
+the_player = sprites.create(img`
     .................ff
     ................f7f
     .......ffff...ff77f
@@ -178,12 +217,12 @@ let enemy1 = sprites.create(img`
     ....................
     `, SpriteKind.Enemy)
 let slime_boss_health = 5
-slime_boss2.follow(mySprite)
+slime_boss2.follow(the_player)
 tiles.placeOnRandomTile(enemy1, assets.tile`tile`)
 tiles.placeOnRandomTile(slime_boss2, assets.tile`myTile1`)
-enemy1.follow(mySprite)
-controller.moveSprite(mySprite)
-scene.cameraFollowSprite(mySprite)
+enemy1.follow(the_player)
+controller.moveSprite(the_player)
+scene.cameraFollowSprite(the_player)
 scene.setBackgroundColor(11)
 info.setLife(5)
 let old_man = sprites.create(img`
@@ -288,7 +327,7 @@ forever(function () {
     }
 })
 forever(function () {
-    if (mySprite.overlapsWith(slimeball)) {
+    if (the_player.overlapsWith(slimeball)) {
         info.changeLifeBy(-1)
         pause(5000)
     }
@@ -298,7 +337,7 @@ forever(function () {
 })
 forever(function () {
     if (controller.left.isPressed() || controller.right.isPressed() || (controller.up.isPressed() || controller.down.isPressed())) {
-        mySprite.setImage(img`
+        the_player.setImage(img`
             .................ff
             ................f7f
             .......ffff...ff77f
@@ -331,7 +370,7 @@ forever(function () {
             ...ffffffffffffff..
             `)
         pause(100)
-        mySprite.setImage(img`
+        the_player.setImage(img`
             ...................
             ...................
             ...................
@@ -393,7 +432,7 @@ forever(function () {
             ........................
             ........................
             ........................
-            `, mySprite, 0, 50)
+            `, the_player, 0, 50)
         projectile = sprites.createProjectileFromSprite(img`
             ........................
             ........................
@@ -419,7 +458,7 @@ forever(function () {
             ........................
             ........................
             ........................
-            `, mySprite, 0, -50)
+            `, the_player, 0, -50)
         projectile = sprites.createProjectileFromSprite(img`
             ........................
             ........................
@@ -445,7 +484,7 @@ forever(function () {
             ........................
             ........................
             ........................
-            `, mySprite, 50, 0)
+            `, the_player, 50, 0)
         projectile = sprites.createProjectileFromSprite(img`
             ........................
             ........................
@@ -471,7 +510,12 @@ forever(function () {
             ........................
             ........................
             ........................
-            `, mySprite, -50, 0)
+            `, the_player, -50, 0)
         pause(1000)
+    }
+})
+forever(function () {
+    if (slime_boss_health == 1) {
+        fireball.follow(the_player)
     }
 })
