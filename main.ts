@@ -406,7 +406,7 @@ forever(function () {
     }
 })
 forever(function () {
-    if (controller.B.isPressed() && info.life() == 5) {
+    if (controller.B.isPressed() && info.life() < 5) {
         projectile = sprites.createProjectileFromSprite(img`
             ........................
             ........................
@@ -517,5 +517,7 @@ forever(function () {
 forever(function () {
     if (slime_boss_health == 1) {
         fireball.follow(the_player)
+        fire_ball3.follow(the_player)
+        fireball2.follow(the_player)
     }
 })
