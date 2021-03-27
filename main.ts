@@ -55,11 +55,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.slime_boss, function (sprite, ot
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.firedragon, function (sprite, otherSprite) {
     if (firedragon_agro == true) {
-        if (controller.A.isPressed()) {
-            firedragonhealth += -1
-            pause(1000)
-        }
-        pause(1000)
+        pause(6000)
         info.changeLifeBy(-1)
     }
 })
@@ -391,6 +387,14 @@ game.onUpdateInterval(2000, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, slime_boss2, 50, 0)
+})
+forever(function () {
+    if (the_player.overlapsWith(fire_dragon)) {
+        if (controller.A.isPressed()) {
+            firedragonhealth += -1
+            pause(1000)
+        }
+    }
 })
 forever(function () {
     if (slime_boss_health == 0) {
