@@ -55,7 +55,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.slime_boss, function (sprite, ot
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.firedragon, function (sprite, otherSprite) {
     if (firedragon_agro == true) {
-        pause(6000)
+        pause(5000)
         info.changeLifeBy(-1)
     }
 })
