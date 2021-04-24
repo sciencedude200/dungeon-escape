@@ -11,7 +11,8 @@
         "keyboard": "*",
         "arcade-story": "github:microsoft/arcade-storytelling#v1.0.1",
         "settings-blocks": "github:microsoft/pxt-settings-blocks#v1.0.0",
-        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1"
+        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1",
+        "tilemaps": "github:microsoft/pxt-tilemaps#v1.11.0"
     },
     "files": [
         "main.blocks",
