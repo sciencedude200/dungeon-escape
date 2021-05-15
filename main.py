@@ -52,7 +52,7 @@ scene.on_overlap_tile(SpriteKind.player,
 def on_on_overlap(sprite, otherSprite):
     game.splash("hello I am the old man")
     game.splash("you must escape")
-    game.splash("I,m in here 100 years ( ´･･)ﾉ(._.`)")
+    game.splash("I,m in here 100 years")
     pause(5000)
 sprites.on_overlap(SpriteKind.player, SpriteKind.wizard, on_on_overlap)
 
@@ -82,6 +82,12 @@ slimeball: Sprite = None
 firedragon_agro = False
 fire_dragon: Sprite = None
 the_player: Sprite = None
+game.splash("aaaaaah... where am I.")
+game.splash("whats this?")
+game.splash("a note you find says this: \"you, you will never escape this dungeon mwa ha ha\"")
+game.splash("whats on my arm?")
+game.splash("a strange symbol it seems.")
+game.splash("why am I here any way")
 info.set_score(10)
 fireball = sprites.create(img("""
         . . . . . . . . . . . . . . . . 
@@ -176,7 +182,7 @@ spawn_ball = sprites.create(img("""
     """),
     SpriteKind.player)
 tiles.set_tilemap(tilemap("""
-    level2
+    level15
 """))
 tiles.place_on_random_tile(fireball, assets.tile("""
     myTile2
@@ -310,16 +316,12 @@ fire_dragon = sprites.create(img("""
             ..................................................
     """),
     SpriteKind.firedragon)
-tiles.place_on_random_tile(fire_dragon, assets.tile("""
-    myTile4
-"""))
+tiles.place_on_random_tile(fire_dragon, tiles.util.object6)
 slime_boss2.follow(the_player)
 tiles.place_on_random_tile(enemy1, assets.tile("""
     tile
 """))
-tiles.place_on_random_tile(slime_boss2, assets.tile("""
-    myTile1
-"""))
+tiles.place_on_random_tile(slime_boss2, tiles.util.object4)
 enemy1.follow(the_player)
 controller.move_sprite(the_player)
 scene.camera_follow_sprite(the_player)
@@ -344,7 +346,7 @@ old_man = sprites.create(img("""
             . . . f f f f . . . f f f f . .
     """),
     0)
-old_man.set_position(78, 105)
+tiles.place_on_random_tile(old_man, tiles.util.object1)
 old_man.set_kind(SpriteKind.wizard)
 firedragonhealth = 5
 firedragon_agro = False
@@ -412,112 +414,11 @@ def on_update_interval():
                     . . . . . . . . . . . . . . . .
         """),
         slime_boss2,
-        -50,
-        0)
-    slimeball = sprites.create_projectile_from_sprite(img("""
-            . . . . . . . . . . . . . . . . 
-                    . . . . . 7 7 7 7 7 7 7 . . . . 
-                    . . . . 7 6 6 6 7 7 7 7 7 . . . 
-                    . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
-                    . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
-                    . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
-                    . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
-                    . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
-                    . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                    . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                    . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-                    . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
-                    . . . . 7 7 7 7 7 7 7 7 7 . . . 
-                    . . . . . 7 7 7 7 7 7 7 . . . . 
-                    . . . . . . . . . . . . . . . . 
-                    . . . . . . . . . . . . . . . .
-        """),
-        slime_boss2,
         50,
         0)
 game.on_update_interval(2000, on_update_interval)
 
 def on_forever():
-    if the_player.overlaps_with(slimeball):
-        info.change_life_by(-1)
-        pause(5000)
-forever(on_forever)
-
-def on_forever2():
-    music.play_melody("E B C5 A B G A F ", 120)
-forever(on_forever2)
-
-def on_forever3():
-    if controller.left.is_pressed() or controller.right.is_pressed() or (controller.up.is_pressed() or controller.down.is_pressed()):
-        the_player.set_image(img("""
-            .................ff
-                        ................f7f
-                        .......ffff...ff77f
-                        ......f7777fff7777f
-                        ......f7777777777f.
-                        .....f77777777777f.
-                        .....f777777777ff..
-                        .....ffffffffff....
-                        .....f55555555f....
-                        .....f55f55f55f....
-                        .....f55555555f....
-                        .....f5f555555f....
-                        .....f55ffff55f....
-                        .....f55555555f....
-                        ......ffffffff.....
-                        .....f77777777f....
-                        ..ffff777ff777fff..
-                        .f777777777777777f.
-                        .f7777777ff7777777f
-                        .f77ff77777777ff77f
-                        .fffff777ff777ff77f
-                        f2222f77777777ff77f
-                        f2ff2ffffffffff.ee.
-                        f2222feeeffeeef.ee.
-                        .f22ffeeeffeeefbbbb
-                        ..ff.feeeffeeef.66.
-                        .....feeeffeeef.66.
-                        ....feeeeffeeeef66.
-                        ...feeeeeffeeeeef..
-                        ...ffffffffffffff..
-        """))
-        pause(100)
-        the_player.set_image(img("""
-            ...................
-                        ...................
-                        ...................
-                        ......fffff......f.
-                        .....f77777f....f7f
-                        ....f7777777ffff77f
-                        ....f7777777777777f
-                        ....f7777777777fff.
-                        .....ffffffffff....
-                        .....f55555555f....
-                        .....f55f55f55f....
-                        .....f55555555f....
-                        .....f5f555555f....
-                        .....f55ffff55f....
-                        .....f55555555f....
-                        .....ffffffffff....
-                        ..ffff77777777ffff.
-                        .f7777777ff7777777f
-                        .f7777777777777777f
-                        .f77ff777ff777ff77f
-                        .f77ff77777777ff77f
-                        .f77ff777ff777f.ee.
-                        .fff..fffffffff.ee.
-                        f222ffeeeffeeefbbbb
-                        f2f2ffeeeffeeef.66.
-                        f222ffeeeffeeef.66.
-                        .f2f.feeeffeeef.66.
-                        ..f.ffeeeffeeeff...
-                        ...feeeeeffeeeeef..
-                        ..feeeeeeffeeeeeef.
-        """))
-        pause(100)
-forever(on_forever3)
-
-def on_forever4():
     global projectile
     if controller.B.is_pressed() and info.life() < 5:
         projectile = sprites.create_projectile_from_sprite(img("""
@@ -637,16 +538,16 @@ def on_forever4():
             -50,
             0)
         pause(1000)
-forever(on_forever4)
+forever(on_forever)
 
-def on_forever5():
+def on_forever2():
     if slime_boss_health == 1:
         fireball.follow(the_player)
         fire_ball3.follow(the_player)
         fireball2.follow(the_player)
-forever(on_forever5)
+forever(on_forever2)
 
-def on_forever6():
+def on_forever3():
     if firedragon_agro == True:
         fire_dragon.set_image(img("""
             ..................................................
@@ -700,32 +601,154 @@ def on_forever6():
                         ..................................................
                         ..................................................
         """))
-forever(on_forever6)
+forever(on_forever3)
 
-def on_forever7():
+def on_forever4():
     print(firedragonhealth)
-forever(on_forever7)
+forever(on_forever4)
 
-def on_forever8():
+def on_forever5():
     global firedragonhealth
     if the_player.overlaps_with(fire_dragon):
         if controller.A.is_pressed():
             firedragonhealth += -1
             pause(1000)
-forever(on_forever8)
+forever(on_forever5)
 
-def on_forever9():
+def on_forever6():
     global firedragonhealth
     if firedragonhealth == 0:
         fire_dragon.destroy()
         info.set_life(6)
         firedragonhealth = 1
-forever(on_forever9)
+forever(on_forever6)
 
-def on_forever10():
+def on_forever7():
     global slime_boss_health
     if slime_boss_health == 0:
         slime_boss2.destroy()
         info.set_life(7)
         slime_boss_health = 1
+forever(on_forever7)
+
+def on_forever8():
+    eternal_doom = 0
+    if eternal_doom == 666:
+        game.splash("end")
+        game.over(False)
+forever(on_forever8)
+
+def on_forever9():
+    if slime_boss_health == 1:
+        sprites.create_projectile_from_sprite(img("""
+                . . . . . . . . . . . . . . . . 
+                            . . . . . 7 7 7 7 7 7 7 . . . . 
+                            . . . . 7 6 6 6 7 7 7 7 7 . . . 
+                            . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
+                            . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
+                            . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+                            . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+                            . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+                            . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                            . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                            . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+                            . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
+                            . . . . 7 7 7 7 7 7 7 7 7 . . . 
+                            . . . . . 7 7 7 7 7 7 7 . . . . 
+                            . . . . . . . . . . . . . . . . 
+                            . . . . . . . . . . . . . . . .
+            """),
+            slime_boss2,
+            -50,
+            0).destroy()
+forever(on_forever9)
+
+def on_forever10():
+    if the_player.overlaps_with(slimeball):
+        info.change_life_by(-1)
+        pause(5000)
 forever(on_forever10)
+
+def on_forever11():
+    music.play_melody("C D E F G F E F ", 111)
+    music.play_melody("E D D C D E E F ", 111)
+    music.play_melody("E D C D E D E F ", 111)
+    music.play_melody("D E F E D E F E ", 111)
+forever(on_forever11)
+
+def on_forever12():
+    if firedragonhealth == 0:
+        tiles.set_tilemap(tilemap("""
+            level14
+        """))
+forever(on_forever12)
+
+def on_forever13():
+    if controller.left.is_pressed() or controller.right.is_pressed() or (controller.up.is_pressed() or controller.down.is_pressed()):
+        the_player.set_image(img("""
+            .................ff
+                        ................f7f
+                        .......ffff...ff77f
+                        ......f7777fff7777f
+                        ......f7777777777f.
+                        .....f77777777777f.
+                        .....f777777777ff..
+                        .....ffffffffff....
+                        .....f55555555f....
+                        .....f55f55f55f....
+                        .....f55555555f....
+                        .....f5f555555f....
+                        .....f55ffff55f....
+                        .....f55555555f....
+                        ......ffffffff.....
+                        .....f77777777f....
+                        ..ffff777ff777fff..
+                        .f777777777777777f.
+                        .f7777777ff7777777f
+                        .f77ff77777777ff77f
+                        .fffff777ff777ff77f
+                        f2222f77777777ff77f
+                        f2ff2ffffffffff.ee.
+                        f2222feeeffeeef.ee.
+                        .f22ffeeeffeeefbbbb
+                        ..ff.feeeffeeef.66.
+                        .....feeeffeeef.66.
+                        ....feeeeffeeeef66.
+                        ...feeeeeffeeeeef..
+                        ...ffffffffffffff..
+        """))
+        pause(100)
+        the_player.set_image(img("""
+            ...................
+                        ...................
+                        ...................
+                        ......fffff......f.
+                        .....f77777f....f7f
+                        ....f7777777ffff77f
+                        ....f7777777777777f
+                        ....f7777777777fff.
+                        .....ffffffffff....
+                        .....f55555555f....
+                        .....f55f55f55f....
+                        .....f55555555f....
+                        .....f5f555555f....
+                        .....f55ffff55f....
+                        .....f55555555f....
+                        .....ffffffffff....
+                        ..ffff77777777ffff.
+                        .f7777777ff7777777f
+                        .f7777777777777777f
+                        .f77ff777ff777ff77f
+                        .f77ff77777777ff77f
+                        .f77ff777ff777f.ee.
+                        .fff..fffffffff.ee.
+                        f222ffeeeffeeefbbbb
+                        f2f2ffeeeffeeef.66.
+                        f222ffeeeffeeef.66.
+                        .f2f.feeeffeeef.66.
+                        ..f.ffeeeffeeeff...
+                        ...feeeeeffeeeeef..
+                        ..feeeeeeffeeeeeef.
+        """))
+        pause(100)
+forever(on_forever13)

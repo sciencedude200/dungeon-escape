@@ -167,7 +167,7 @@ let spawn_ball = sprites.create(img`
     .........ff6bbb6666bbb6ff........
     ...........fff6bbbb6fff..........
     `, SpriteKind.Player)
-tiles.setTilemap(tilemap`level2`)
+tiles.setTilemap(tilemap`dungeon1`)
 tiles.placeOnRandomTile(fireball, assets.tile`myTile2`)
 tiles.placeOnRandomTile(fire_ball3, assets.tile`myTile2`)
 tiles.placeOnRandomTile(fireball2, assets.tile`myTile2`)
@@ -289,10 +289,10 @@ fire_dragon = sprites.create(img`
     ..................................................
     ..................................................
     `, SpriteKind.firedragon)
-tiles.placeOnRandomTile(fire_dragon, assets.tile`myTile4`)
+tiles.placeOnRandomTile(fire_dragon, tiles.util.object6)
 slime_boss2.follow(the_player)
 tiles.placeOnRandomTile(enemy1, assets.tile`tile`)
-tiles.placeOnRandomTile(slime_boss2, assets.tile`myTile1`)
+tiles.placeOnRandomTile(slime_boss2, tiles.util.object4)
 enemy1.follow(the_player)
 controller.moveSprite(the_player)
 scene.cameraFollowSprite(the_player)
@@ -316,7 +316,7 @@ let old_man = sprites.create(img`
     . . . 8 8 . . . . . 8 8 . . . . 
     . . . f f f f . . . f f f f . . 
     `, 0)
-old_man.setPosition(78, 105)
+tiles.placeOnRandomTile(old_man, tiles.util.object1)
 old_man.setKind(SpriteKind.wizard)
 let firedragonhealth = 5
 firedragon_agro = false
@@ -374,119 +374,7 @@ game.onUpdateInterval(2000, function () {
         . . . . . 7 7 7 7 7 7 7 . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, slime_boss2, -50, 0)
-    slimeball = sprites.createProjectileFromSprite(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . 7 7 7 7 7 7 7 . . . . 
-        . . . . 7 6 6 6 7 7 7 7 7 . . . 
-        . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
-        . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
-        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
-        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
-        . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
-        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-        . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-        . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
-        . . . . 7 7 7 7 7 7 7 7 7 . . . 
-        . . . . . 7 7 7 7 7 7 7 . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
         `, slime_boss2, 50, 0)
-})
-forever(function () {
-    let eternal_doom = 0
-    if (eternal_doom == 666) {
-        game.splash("end")
-        game.over(false)
-    }
-})
-forever(function () {
-    if (slime_boss_health == 1) {
-        slimeball.destroy()
-    }
-})
-forever(function () {
-    if (the_player.overlapsWith(slimeball)) {
-        info.changeLifeBy(-1)
-        pause(5000)
-    }
-})
-forever(function () {
-    music.playMelody("C D E F G F E F ", 111)
-    music.playMelody("E D D C D E E F ", 111)
-    music.playMelody("E D C D E D E F ", 111)
-    music.playMelody("D E F E D E F E ", 111)
-})
-forever(function () {
-    if (controller.left.isPressed() || controller.right.isPressed() || (controller.up.isPressed() || controller.down.isPressed())) {
-        the_player.setImage(img`
-            .................ff
-            ................f7f
-            .......ffff...ff77f
-            ......f7777fff7777f
-            ......f7777777777f.
-            .....f77777777777f.
-            .....f777777777ff..
-            .....ffffffffff....
-            .....f55555555f....
-            .....f55f55f55f....
-            .....f55555555f....
-            .....f5f555555f....
-            .....f55ffff55f....
-            .....f55555555f....
-            ......ffffffff.....
-            .....f77777777f....
-            ..ffff777ff777fff..
-            .f777777777777777f.
-            .f7777777ff7777777f
-            .f77ff77777777ff77f
-            .fffff777ff777ff77f
-            f2222f77777777ff77f
-            f2ff2ffffffffff.ee.
-            f2222feeeffeeef.ee.
-            .f22ffeeeffeeefbbbb
-            ..ff.feeeffeeef.66.
-            .....feeeffeeef.66.
-            ....feeeeffeeeef66.
-            ...feeeeeffeeeeef..
-            ...ffffffffffffff..
-            `)
-        pause(100)
-        the_player.setImage(img`
-            ...................
-            ...................
-            ...................
-            ......fffff......f.
-            .....f77777f....f7f
-            ....f7777777ffff77f
-            ....f7777777777777f
-            ....f7777777777fff.
-            .....ffffffffff....
-            .....f55555555f....
-            .....f55f55f55f....
-            .....f55555555f....
-            .....f5f555555f....
-            .....f55ffff55f....
-            .....f55555555f....
-            .....ffffffffff....
-            ..ffff77777777ffff.
-            .f7777777ff7777777f
-            .f7777777777777777f
-            .f77ff777ff777ff77f
-            .f77ff77777777ff77f
-            .f77ff777ff777f.ee.
-            .fff..fffffffff.ee.
-            f222ffeeeffeeefbbbb
-            f2f2ffeeeffeeef.66.
-            f222ffeeeffeeef.66.
-            .f2f.feeeffeeef.66.
-            ..f.ffeeeffeeeff...
-            ...feeeeeffeeeeef..
-            ..feeeeeeffeeeeeef.
-            `)
-        pause(100)
-    }
 })
 forever(function () {
     if (controller.B.isPressed() && info.life() < 5) {
@@ -673,6 +561,11 @@ forever(function () {
 })
 forever(function () {
     if (firedragonhealth == 0) {
+        tiles.placeOnRandomTile(the_player, sprites.dungeon.collectibleInsignia)
+    }
+})
+forever(function () {
+    if (firedragonhealth == 0) {
         fire_dragon.destroy()
         info.setLife(6)
         firedragonhealth = 1
@@ -683,5 +576,116 @@ forever(function () {
         slime_boss2.destroy()
         info.setLife(7)
         slime_boss_health = 1
+    }
+})
+forever(function () {
+    let eternal_doom = 0
+    if (eternal_doom == 666) {
+        game.splash("end")
+        game.over(false)
+    }
+})
+forever(function () {
+    if (slime_boss_health == 1) {
+        sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . 7 7 7 7 7 7 7 . . . . 
+            . . . . 7 6 6 6 7 7 7 7 7 . . . 
+            . . . 7 7 6 6 6 7 7 7 7 7 7 . . 
+            . . 7 7 7 6 6 6 7 7 7 7 7 7 7 . 
+            . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+            . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+            . . 7 7 7 7 7 7 7 6 6 6 7 7 7 . 
+            . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+            . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+            . . 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+            . . . 7 7 7 7 7 7 7 7 7 7 7 . . 
+            . . . . 7 7 7 7 7 7 7 7 7 . . . 
+            . . . . . 7 7 7 7 7 7 7 . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, slime_boss2, -50, 0).destroy()
+    }
+})
+forever(function () {
+    if (the_player.overlapsWith(slimeball)) {
+        info.changeLifeBy(-1)
+        pause(5000)
+    }
+})
+forever(function () {
+    music.playMelody("C D E F G F E F ", 111)
+    music.playMelody("E D D C D E E F ", 111)
+    music.playMelody("E D C D E D E F ", 111)
+    music.playMelody("D E F E D E F E ", 111)
+})
+forever(function () {
+    if (controller.left.isPressed() || controller.right.isPressed() || (controller.up.isPressed() || controller.down.isPressed())) {
+        the_player.setImage(img`
+            .................ff
+            ................f7f
+            .......ffff...ff77f
+            ......f7777fff7777f
+            ......f7777777777f.
+            .....f77777777777f.
+            .....f777777777ff..
+            .....ffffffffff....
+            .....f55555555f....
+            .....f55f55f55f....
+            .....f55555555f....
+            .....f5f555555f....
+            .....f55ffff55f....
+            .....f55555555f....
+            ......ffffffff.....
+            .....f77777777f....
+            ..ffff777ff777fff..
+            .f777777777777777f.
+            .f7777777ff7777777f
+            .f77ff77777777ff77f
+            .fffff777ff777ff77f
+            f2222f77777777ff77f
+            f2ff2ffffffffff.ee.
+            f2222feeeffeeef.ee.
+            .f22ffeeeffeeefbbbb
+            ..ff.feeeffeeef.66.
+            .....feeeffeeef.66.
+            ....feeeeffeeeef66.
+            ...feeeeeffeeeeef..
+            ...ffffffffffffff..
+            `)
+        pause(100)
+        the_player.setImage(img`
+            ...................
+            ...................
+            ...................
+            ......fffff......f.
+            .....f77777f....f7f
+            ....f7777777ffff77f
+            ....f7777777777777f
+            ....f7777777777fff.
+            .....ffffffffff....
+            .....f55555555f....
+            .....f55f55f55f....
+            .....f55555555f....
+            .....f5f555555f....
+            .....f55ffff55f....
+            .....f55555555f....
+            .....ffffffffff....
+            ..ffff77777777ffff.
+            .f7777777ff7777777f
+            .f7777777777777777f
+            .f77ff777ff777ff77f
+            .f77ff77777777ff77f
+            .f77ff777ff777f.ee.
+            .fff..fffffffff.ee.
+            f222ffeeeffeeefbbbb
+            f2f2ffeeeffeeef.66.
+            f222ffeeeffeeef.66.
+            .f2f.feeeffeeef.66.
+            ..f.ffeeeffeeeff...
+            ...feeeeeffeeeeef..
+            ..feeeeeeffeeeeeef.
+            `)
+        pause(100)
     }
 })
