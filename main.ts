@@ -50,7 +50,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.wizard, function (sprite, otherS
 sprites.onOverlap(SpriteKind.Player, SpriteKind.slime_boss, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
         slime_boss_health += -1
-        pause(1000)
+        pause(500)
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.firedragon, function (sprite, otherSprite) {
@@ -60,12 +60,30 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.firedragon, function (sprite, ot
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
-    pause(1000)
     if (controller.A.isPressed()) {
+        otherSprite.setImage(img`
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 f 2 f 2 f 2 2 f 2 2 2 2 2 2 
+            2 2 f f f 2 2 2 f f f 2 2 2 2 2 
+            2 2 f 2 f 2 f 2 2 f 2 2 2 2 2 2 
+            2 2 f 2 f 2 f 2 2 f 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 4 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 4 5 4 2 2 2 2 2 2 2 2 2 2 
+            2 2 4 5 5 5 4 2 2 2 2 2 4 2 2 2 
+            2 2 2 4 5 4 2 2 2 2 2 4 5 4 2 2 
+            2 2 2 2 4 2 2 2 2 2 4 5 5 5 4 2 
+            2 2 2 2 2 2 2 2 2 2 2 4 5 4 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 4 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+            `)
+        pause(500)
         otherSprite.destroy()
     }
-    pause(1000)
     info.changeLifeBy(-1)
+    pause(2000)
 })
 let projectile: Sprite = null
 let slimeball: Sprite = null
