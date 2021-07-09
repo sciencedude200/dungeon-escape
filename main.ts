@@ -75,6 +75,21 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.firedragon, function (sprite, ot
         info.changeLifeBy(-1)
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.frogbossboi, function (sprite, otherSprite) {
+    pause(1000)
+    if (controller.A.isPressed()) {
+        frog_boss_health += -1
+    }
+    pause(1000)
+    info.changeLifeBy(-1)
+    if (controller.A.isPressed()) {
+        frog_boss_health += -1
+    }
+    pause(1000)
+    if (controller.A.isPressed()) {
+        frog_boss_health += -1
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
         otherSprite.setImage(img`
@@ -337,6 +352,7 @@ let frog_boss = sprites.create(img`
     ................................................................
     `, SpriteKind.frogbossboi)
 tiles.placeOnRandomTile(frog_boss, tiles.util.object12)
+let frog_boss_health = 8
 let slime_boss_health = 5
 let frog2 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -766,6 +782,9 @@ forever(function () {
     }
 })
 forever(function () {
+    frog_boss.follow(the_player, 50)
+})
+forever(function () {
 	
 })
 forever(function () {
@@ -815,6 +834,13 @@ forever(function () {
     music.playMelody("E D D C D E E F ", 111)
     music.playMelody("E D C D E D E F ", 111)
     music.playMelody("D E F E D E F E ", 111)
+})
+forever(function () {
+    if (frog_boss_health == 0) {
+        frog_boss.destroy()
+        info.setLife(10)
+        frog_boss_health = 1
+    }
 })
 forever(function () {
     if (controller.left.isPressed() || controller.right.isPressed() || (controller.up.isPressed() || controller.down.isPressed())) {
