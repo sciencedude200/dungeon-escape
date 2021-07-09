@@ -4,6 +4,7 @@ namespace SpriteKind {
     export const firedragon = SpriteKind.create()
     export const frogbossboi = SpriteKind.create()
     export const frog = SpriteKind.create()
+    export const oldboss = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.frog, function (sprite, otherSprite) {
     pause(1000)
@@ -57,11 +58,76 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile7`, function (sprite, l
     fire_dragon.follow(the_player, 50)
     firedragon_agro = true
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.oldboss, function (sprite, otherSprite) {
+    old_boss.setImage(img`
+        ........................
+        ........................
+        ..2.2.......ff..........
+        ..2......fff77fff....22.
+        ..2.....ff777777f.....2.
+        ..2....ff7777777ff....2.
+        ..2...ff777777777ff...2.
+        ..2..ff77777777777f..22.
+        ..2..f777777777777ff.2..
+        .22..fffffffffffffff.2..
+        .2...d2222ddddd2222d.2..
+        .2...25555ddddd5555d.2..
+        .2...ddddddddddddddd..2.
+        .2..dddddfffffffddddd.2.
+        .2...ddddddddddddddd..2.
+        ..22.f777fffffff777f..2.
+        ..2..f77fbbbbbbbf77f..2.
+        ..2..f7fbbbbbbbbbf7f..2.
+        ..2..f7fbbbbbbbbbf7f.22.
+        ..2..f7fbbbbbbbbbf7f.2..
+        .22..f7fb5b5b5b5bf7f.2..
+        .2.2.f7fb4b4b5b4bf7f.2..
+        .2...f7fbbbbbbbbbf7f.2..
+        .2...f7fbbbbbbbbbf7f.22.
+        .2...f77fbbbbbbbf77f..2.
+        .2...f777fffffff777f..2.
+        .2..fffffffffffffffff.2.
+        .2..f666666666666666f.2.
+        .2.2f666666666666666f.2.
+        .2..f677777777777766f.2.
+        .2..f677f77fff7f7766f22.
+        .2..f677f77f7f7f7766f2..
+        .2..f677f77fff7f7766f2..
+        .2..f677777777777766f22.
+        .22.f666666666666666f.2.
+        ..2..f6666666666666f..2.
+        .2...fffffffffffffff..22
+        .2...f8877777777777f..2.
+        .2.2.f7887777e77888f..2.
+        .2...f7782222ebb877f..2.
+        2....f77228222bbb77f..2.
+        2....f7778877877777f..2.
+        22...f7778777788777f..2.
+        .2.2.fffffffffffffff..2.
+        .2......ee......ee....2.
+        .2.....eee......eee..22.
+        .2....eeee......eeee.2..
+        .2....eeee......eeee.2..
+        `)
+    pause(500)
+    if (controller.A.isPressed()) {
+        old_health += -1
+    }
+    info.changeLifeBy(-1)
+    if (controller.A.isPressed()) {
+        old_health += -1
+    }
+    pause(500)
+    if (controller.A.isPressed()) {
+        old_health += -1
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.wizard, function (sprite, otherSprite) {
     game.splash("hello I am the old man")
     game.splash("you must escape")
     game.splash("I,m in here 100 years")
     pause(5000)
+    old_man.destroy()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.slime_boss, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
@@ -119,8 +185,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 let projectile: Sprite = null
 let slimeball: Sprite = null
 let firedragon_agro = false
+let old_man: Sprite = null
 let fire_dragon: Sprite = null
 let the_player: Sprite = null
+let old_boss: Sprite = null
 game.splash("aaaaaah... where am I.")
 game.splash("whats this?")
 game.splash("a note you find says this: \"you, you will never escape this dungeon mwa ha ha\"")
@@ -216,6 +284,8 @@ let spawn_ball = sprites.create(img`
     .........ff6bbb6666bbb6ff........
     ...........fff6bbbb6fff..........
     `, SpriteKind.Player)
+let old_health = 8
+old_boss.follow(the_player)
 tiles.setTilemap(tilemap`dungeon1`)
 tiles.placeOnRandomTile(fireball, assets.tile`myTile2`)
 tiles.placeOnRandomTile(fire_ball3, assets.tile`myTile2`)
@@ -351,9 +421,61 @@ let frog_boss = sprites.create(img`
     ................................................................
     ................................................................
     `, SpriteKind.frogbossboi)
+old_boss = sprites.create(img`
+    ........................
+    ........................
+    ............ff..........
+    .........fff77fff.......
+    ........ff777777f.......
+    .......ff7777777ff......
+    ......ff777777777ff.....
+    .....ff77777777777f.....
+    .....f777777777777ff....
+    .....fffffffffffffff....
+    .....d2222ddddd2222d....
+    .....d5555ddddd5555d....
+    .....ddddddddddddddd....
+    ....dddddfffffffddddd...
+    .....ddddddddddddddd....
+    .....f777fffffff777f....
+    .....f77fbbbbbbbf77f....
+    .....f7fbbbbbbbbbf7f....
+    .....f7fbbbbbbbbbf7f....
+    .....f7fbbbbbbbbbf7f....
+    .....f7fb5b5b5b5bf7f....
+    .....f7fb4b4b5b4bf7f....
+    .....f7fbbbbbbbbbf7f....
+    .....f7fbbbbbbbbbf7f....
+    .....f77fbbbbbbbf77f....
+    .....f777fffffff777f....
+    ....fffffffffffffffff...
+    ....f666666666666666f...
+    ....f666666666666666f...
+    ....f677777777777766f...
+    ....f677f77fff7f7766f...
+    ....f677f77f7f7f7766f...
+    ....f677f77fff7f7766f...
+    ....f677777777777766f...
+    ....f666666666666666f...
+    .....f6666666666666f....
+    .....fffffffffffffff....
+    .....f8877777777777f....
+    .....f7887777e77888f....
+    .....f7782222ebb877f....
+    .....f77228222bbb77f....
+    .....f7778877877777f....
+    .....f7778777788777f....
+    .....fffffffffffffff....
+    ........ee......ee......
+    .......eee......eee.....
+    ......eeee......eeee....
+    ......eeee......eeee....
+    `, SpriteKind.oldboss)
+tiles.placeOnRandomTile(old_boss, assets.tile`myTile16`)
 tiles.placeOnRandomTile(frog_boss, tiles.util.object12)
-let frog_boss_health = 8
+let frog_boss_health = 5
 let slime_boss_health = 5
+let ondoor = false
 let frog2 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -426,31 +548,11 @@ let frog_4 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.frog)
-let frog5 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . 7 7 7 7 7 7 . . . . . 
-    . . . . 7 7 7 7 7 7 7 7 . . . . 
-    . . . 7 7 f 1 7 7 1 f 7 7 . . . 
-    . . . 7 7 1 f 7 7 f 1 7 7 . . . 
-    . . . 7 7 7 7 7 7 7 7 7 7 . . . 
-    . . . 7 7 7 7 7 7 7 7 7 7 . . . 
-    . . . 7 7 7 7 7 7 7 7 7 7 . . . 
-    . . 7 7 . . 7 7 . 7 7 . 7 7 . . 
-    . . 7 7 . . 7 7 . 7 7 . 7 7 . . 
-    . . 7 7 . . . . . . . . 7 7 . . 
-    . . 7 7 . . . . . . . . 7 7 . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    `, SpriteKind.frog)
 tiles.placeOnRandomTile(frog2, assets.tile`myTile12`)
-tiles.placeOnRandomTile(frog5, assets.tile`myTile12`)
 tiles.placeOnRandomTile(frog_4, assets.tile`myTile12`)
 tiles.placeOnRandomTile(frog3, assets.tile`myTile12`)
 tiles.placeOnRandomTile(frog1, assets.tile`myTile12`)
 frog2.follow(the_player, 50)
-frog5.follow(the_player, 50)
 frog_4.follow(the_player, 50)
 frog3.follow(the_player, 50)
 frog1.follow(the_player, 50)
@@ -515,7 +617,7 @@ controller.moveSprite(the_player)
 scene.cameraFollowSprite(the_player)
 scene.setBackgroundColor(11)
 info.setLife(5)
-let old_man = sprites.create(img`
+old_man = sprites.create(img`
     . 8 8 8 8 8 8 8 8 8 8 . . . . . 
     8 8 . 8 8 8 8 8 8 8 8 8 . . . . 
     8 . . . . d d d d d d 8 . . . . 
@@ -785,6 +887,12 @@ forever(function () {
     frog_boss.follow(the_player, 50)
 })
 forever(function () {
+    if (old_health == 0) {
+        old_boss.destroy(effects.ashes, 500)
+        game.over(true)
+    }
+})
+forever(function () {
 	
 })
 forever(function () {
@@ -840,6 +948,7 @@ forever(function () {
         frog_boss.destroy()
         info.setLife(10)
         frog_boss_health = 1
+        tiles.placeOnRandomTile(the_player, assets.tile`myTile14`)
     }
 })
 forever(function () {
