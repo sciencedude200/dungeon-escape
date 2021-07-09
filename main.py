@@ -60,7 +60,7 @@ def on_on_overlap2(sprite, otherSprite):
     global slime_boss_health
     if controller.A.is_pressed():
         slime_boss_health += -1
-        pause(1000)
+        pause(500)
 sprites.on_overlap(SpriteKind.player, SpriteKind.slime_boss, on_on_overlap2)
 
 def on_on_overlap3(sprite, otherSprite):
@@ -70,11 +70,29 @@ def on_on_overlap3(sprite, otherSprite):
 sprites.on_overlap(SpriteKind.player, SpriteKind.firedragon, on_on_overlap3)
 
 def on_on_overlap4(sprite, otherSprite):
-    pause(1000)
     if controller.A.is_pressed():
+        otherSprite.set_image(img("""
+            2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+                        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+                        2 2 f 2 f 2 f 2 2 f 2 2 2 2 2 2 
+                        2 2 f f f 2 2 2 f f f 2 2 2 2 2 
+                        2 2 f 2 f 2 f 2 2 f 2 2 2 2 2 2 
+                        2 2 f 2 f 2 f 2 2 f 2 2 2 2 2 2 
+                        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+                        2 2 2 2 4 2 2 2 2 2 2 2 2 2 2 2 
+                        2 2 2 4 5 4 2 2 2 2 2 2 2 2 2 2 
+                        2 2 4 5 5 5 4 2 2 2 2 2 4 2 2 2 
+                        2 2 2 4 5 4 2 2 2 2 2 4 5 4 2 2 
+                        2 2 2 2 4 2 2 2 2 2 4 5 5 5 4 2 
+                        2 2 2 2 2 2 2 2 2 2 2 4 5 4 2 2 
+                        2 2 2 2 2 2 2 2 2 2 2 2 4 2 2 2 
+                        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+                        2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+        """))
+        pause(500)
         otherSprite.destroy()
-    pause(1000)
     info.change_life_by(-1)
+    pause(2000)
 sprites.on_overlap(SpriteKind.player, SpriteKind.enemy, on_on_overlap4)
 
 projectile: Sprite = None
@@ -182,7 +200,7 @@ spawn_ball = sprites.create(img("""
     """),
     SpriteKind.player)
 tiles.set_tilemap(tilemap("""
-    level15
+    dungeon1
 """))
 tiles.place_on_random_tile(fireball, assets.tile("""
     myTile2
@@ -616,29 +634,34 @@ def on_forever5():
 forever(on_forever5)
 
 def on_forever6():
+    if firedragonhealth == 0:
+        tiles.place_on_random_tile(the_player, sprites.dungeon.collectible_insignia)
+forever(on_forever6)
+
+def on_forever7():
     global firedragonhealth
     if firedragonhealth == 0:
         fire_dragon.destroy()
         info.set_life(6)
         firedragonhealth = 1
-forever(on_forever6)
+forever(on_forever7)
 
-def on_forever7():
+def on_forever8():
     global slime_boss_health
     if slime_boss_health == 0:
         slime_boss2.destroy()
         info.set_life(7)
         slime_boss_health = 1
-forever(on_forever7)
+forever(on_forever8)
 
-def on_forever8():
+def on_forever9():
     eternal_doom = 0
     if eternal_doom == 666:
         game.splash("end")
         game.over(False)
-forever(on_forever8)
+forever(on_forever9)
 
-def on_forever9():
+def on_forever10():
     if slime_boss_health == 1:
         sprites.create_projectile_from_sprite(img("""
                 . . . . . . . . . . . . . . . . 
@@ -661,26 +684,19 @@ def on_forever9():
             slime_boss2,
             -50,
             0).destroy()
-forever(on_forever9)
-
-def on_forever10():
-    if the_player.overlaps_with(slimeball):
-        info.change_life_by(-1)
-        pause(5000)
 forever(on_forever10)
 
 def on_forever11():
+    if the_player.overlaps_with(slimeball):
+        info.change_life_by(-1)
+        pause(5000)
+forever(on_forever11)
+
+def on_forever12():
     music.play_melody("C D E F G F E F ", 111)
     music.play_melody("E D D C D E E F ", 111)
     music.play_melody("E D C D E D E F ", 111)
     music.play_melody("D E F E D E F E ", 111)
-forever(on_forever11)
-
-def on_forever12():
-    if firedragonhealth == 0:
-        tiles.set_tilemap(tilemap("""
-            level14
-        """))
 forever(on_forever12)
 
 def on_forever13():
